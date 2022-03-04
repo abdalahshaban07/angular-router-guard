@@ -1,0 +1,8 @@
+<h1>User Details</h1>
+<section *ngIf="user$ | async as user; else loading" class="user-card">
+  <h3>{{ user.name }}</h3>
+  <p>{{ user.email }}</p>
+</section>
+<ng-template #loading>
+  <span>Loading...</span>
+</ng-template>

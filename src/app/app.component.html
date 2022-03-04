@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>Routing Guards</span>
+  <span>Routing Guards && Resolve</span>
   <a
     class="first-link"
     routerLinkActive="active"
@@ -9,7 +9,17 @@
     >Home</a
   >
   <a mat-button routerLinkActive="active" routerLink="/admin">Admin</a>
+  <a mat-button routerLinkActive="active" routerLink="/user/list">User</a>
 </mat-toolbar>
+
 <main class="content">
+  <div style="display: grid; place-items: center;">
+    <mat-progress-bar
+      mode="indeterminate"
+      style="position: absolute;"
+      *ngIf="isLoading$ |async"
+    >
+    </mat-progress-bar>
+  </div>
   <router-outlet></router-outlet>
 </main>

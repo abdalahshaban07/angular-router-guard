@@ -1,0 +1,12 @@
+<ng-container *ngIf="users$ | async as users;else loading">
+  <div *ngFor="let user of users" class="user-list">
+    <div style="flex-grow: 1;">
+      <h5>{{ user.name }}</h5>
+      <p>{{ user.email }}</p>
+    </div>
+    <a mat-stroked-button (click)="goToDetails(user.id)">Details</a>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <span>Loading...</span>
+</ng-template>
