@@ -1,12 +1,11 @@
-<ng-container *ngIf="users$ | async as users;else loading">
-  <div *ngFor="let user of users" class="user-list">
-    <div style="flex-grow: 1;">
-      <h5>{{ user.name }}</h5>
-      <p>{{ user.email }}</p>
-    </div>
-    <a mat-stroked-button (click)="goToDetails(user.id)">Details</a>
-  </div>
-</ng-container>
-<ng-template #loading>
-  <span>Loading...</span>
-</ng-template>
+<ul>
+  <li *ngFor="let user of users$ | async">
+    <a
+      [routerLink]="['', { outlets: { details: ['user', user.id] } }]"
+      class="link primary"
+    >
+      <h4 class="mat-title">{{ user.name }}</h4>
+    </a>
+    <p class="mat-caption">{{ user.email }}</p>
+  </li>
+</ul>

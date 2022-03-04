@@ -1,33 +1,27 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthPreloadStrategy } from './auth/auth-preload-strategy';
-import { AuthenticationGuard } from './auth/authentication.guard';
-import { LoadGuardGuard } from './auth/load-guard.guard';
-import { HomeComponent } from './home/home.component';
+import { RouterModule, Routes } from '@angular/router';
+import { PhotoDetailsComponent } from './photos/photo-details/photo-details.component';
+import { PhotosListComponent } from './photos/photos-list/photos-list.component';
+import { UserDetailsComponent } from './user/user-details/user-details.component';
+import { UserListComponent } from './user/user-list/user-list.component';
 
 const routes: Routes = [
-  {
-    path: 'admin',
-    loadChildren: () =>
-      import('./admin/admin.module').then((m) => m.AdminModule),
-    canLoad: [LoadGuardGuard],
-  },
+  { path: '', redirectTo: 'user', pathMatch: 'full' },
+
   {
     path: 'user',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
+
   {
-    path: '',
-    // component: HomeComponent,
-    redirectTo: 'user/list',
-    pathMatch: 'full',
+    path: 'photo',
+    loadChildren: () =>
+      import('./photos/photos.module').then((m) => m.PhotosModule),
   },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: AuthPreloadStrategy }),
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

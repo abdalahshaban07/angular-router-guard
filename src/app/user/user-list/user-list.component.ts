@@ -1,9 +1,18 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  HostBinding,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { User } from '../user';
+import { Observable, pluck, switchMap } from 'rxjs';
 import { UsersService } from '../users.service';
-
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -12,13 +21,11 @@ import { UsersService } from '../users.service';
 })
 export class UserListComponent implements OnInit {
   users$!: Observable<User[]>;
-  constructor(private users: UsersService, private router: Router) {}
+
+  constructor(private userServ: UsersService) {}
 
   ngOnInit(): void {
-    this.users$ = this.users.getUsers();
-  }
-
-  goToDetails(id: number) {
-    this.router.navigate(['user', 'details', id]);
+    this.users$ = this.userServ.getUsers();
+    console.log({ users$: this.users$ });
   }
 }

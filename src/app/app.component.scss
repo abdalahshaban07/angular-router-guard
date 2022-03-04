@@ -1,14 +1,10 @@
 .content {
-  padding: 20px;
-  box-sizing: border-box;
-}
-.first-link {
-  margin-left: 20px;
+  min-height: calc(100vh - 64px);
+  display: flex;
 }
 .active {
-  border: white 1px solid;
+  border-color: #fff;
 }
-
-.mat-progress-bar {
-  width: 80%;
+a {
+  margin-left: 15px;
 }

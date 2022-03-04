@@ -1,25 +1,32 @@
-<mat-toolbar color="primary">
-  <span>Routing Guards && Resolve</span>
-  <a
-    class="first-link"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true}"
-    mat-button
-    routerLink="/"
-    >Home</a
-  >
-  <a mat-button routerLinkActive="active" routerLink="/admin">Admin</a>
-  <a mat-button routerLinkActive="active" routerLink="/user/list">User</a>
-</mat-toolbar>
-
-<main class="content">
-  <div style="display: grid; place-items: center;">
-    <mat-progress-bar
-      mode="indeterminate"
-      style="position: absolute;"
-      *ngIf="isLoading$ |async"
+<header>
+  <mat-toolbar color="primary">
+    <a
+      mat-stroked-button
+      routerLinkActive="active"
+      routerLink="user"
+      class="nav-link"
+      >Users</a
     >
-    </mat-progress-bar>
-  </div>
-  <router-outlet></router-outlet>
+    <a mat-stroked-button routerLinkActive="active" routerLink="photo"
+      >Photos</a
+    >
+  </mat-toolbar>
+</header>
+<main class="content">
+  <aside class="sidebar">
+    <router-outlet></router-outlet>
+  </aside>
+  <section class="details">
+    <router-outlet
+      (activate)="isButtonVisible = true"
+      (deactivate)="isButtonVisible = false"
+      name="details"
+    ></router-outlet>
+    <a
+      mat-button
+      *ngIf="isButtonVisible"
+      [routerLink]="['', { outlets: { details: null } }]"
+      >close</a
+    >
+  </section>
 </main>

@@ -1,8 +1,18 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  HostBinding,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
-import { User } from '../user';
 
+import { Observable, pluck, switchMap } from 'rxjs';
+import { UsersService } from '../users.service';
+interface UserDetails {
+  id: number;
+  email: string;
+  name: string;
+}
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -10,10 +20,17 @@ import { User } from '../user';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailsComponent implements OnInit {
-  user$!: Observable<User>;
-  constructor(private activatedRoute: ActivatedRoute) {}
+  // @HostBinding('class.mat-elevation-z2') hostCls = true;
+  user$!: Observable<UserDetails>;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private userService: UsersService
+  ) {}
 
   ngOnInit(): void {
-    this.user$ = this.activatedRoute.data.pipe(map((data) => data?.['user']));
+    this.user$ = this.activatedRoute.params.pipe(
+      pluck('id'),
+      switchMap((id) => this.userService.getUser(id))
+    );
   }
 }

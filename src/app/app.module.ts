@@ -4,11 +4,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HomeModule } from './home/home.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import { UserModule } from './user/user.module';
+import { PhotosModule } from './photos/photos.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,8 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     MatDialogModule,
     MatButtonModule,
-    HomeModule,
     MatProgressBarModule,
+    UserModule,
+    PhotosModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
